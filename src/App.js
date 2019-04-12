@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from './logo.svg'
+
 // import
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
@@ -12,10 +12,10 @@ import ProductList from "./components/ProductList";
 
 import Details from "./components/Details";
 import Default from "./components/Default";
-import Cart from "./components/Cart";
-
+import Cart from "./components/Cart/Cart";
+import Modal from "./components/Modal";
 class App extends Component {
-   render() {
+  render() {
     return (
       <React.Fragment>
         <Navbar />
@@ -26,6 +26,7 @@ class App extends Component {
 
           <Route component={Default} />
         </Switch>
+        <Modal />
       </React.Fragment>
     );
   }

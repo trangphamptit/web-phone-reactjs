@@ -114,5 +114,3 @@ export const detailProduct = {
   count: 0,
   total: 0
 };
-
-

@@ -24,6 +24,7 @@ https://www.iconfinder.com/Makoto_msk  */}
             </Link>
           </li>
         </ul>
+        <input type="text" placeholder="Search.." />
         <Link to="/cart" className="ml-auto">
           <ButtonContainer>
             <span className="mr-2">
