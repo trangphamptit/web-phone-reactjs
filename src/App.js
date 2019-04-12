@@ -3,6 +3,8 @@ import React, { Component } from "react";
 // import
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
+import getAllProducts from './services/ProductServices';
+import { getAllCustomer, createCustomer } from './services/CustomerServices';
 
 // import bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +18,8 @@ import Cart from "./components/Cart/Cart";
 import Modal from "./components/Modal";
 class App extends Component {
   render() {
+    let a = getAllProducts();
+    a.then(response => console.log(response));
     return (
       <React.Fragment>
         <Navbar />
