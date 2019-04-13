@@ -9,6 +9,8 @@ import { getAllCustomer, createCustomer } from './services/CustomerServices';
 // import bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import Login from './components/Login/Login';
+
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
 
@@ -27,7 +29,7 @@ class App extends Component {
           <Route exact path="/" component={ProductList} />
           <Route path="/details" component={Details} />
           <Route path="/cart" component={Cart} />
-
+          <Route path='/login' exact component={Login} />
           <Route component={Default} />
         </Switch>
         <Modal />
