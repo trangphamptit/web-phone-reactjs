@@ -23,6 +23,11 @@ https://www.iconfinder.com/Makoto_msk  */}
               Products
             </Link>
           </li>
+          <li className="nav-item ml-5">
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          </li>
         </ul>
         <input type="text" placeholder="Search.." />
         <Link to="/cart" className="ml-auto">

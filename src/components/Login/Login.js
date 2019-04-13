@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+// import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -30,31 +32,30 @@ export default class Login extends Component {
     return (
       <div className="Login">
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
-            Login
-          </Button>
+          <div className="form-group">
+            <label htmlFor="email">Email address:</label>
+            <input 
+                type="email" 
+                onChange={this.handleChange}
+                autoFocus 
+                className="form-control" 
+                value={this.state.email} 
+                id="email"/>
+          </div>
+          <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input 
+                type="password"
+                className="form-control"
+                value={this.state.password}
+                onChange={this.handleChange}
+                id="password"/>
+          </div>
+          <button 
+            type="submit" 
+            className="btn btn-primary btn-lg btn-block" 
+            disabled={!this.validateForm} >Login
+          </button>
         </form>
       </div>
     );
