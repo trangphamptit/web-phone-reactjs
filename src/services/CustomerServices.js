@@ -1,11 +1,11 @@
 import Axios from "axios";
 
 
-export default function getAllCustomers(){
-    return Axios.get('https://api-mobile-shopping.herokuapp.com/api/products/');
+function getAllCustomers(){
+    return Axios.get('https://api-mobile-shopping.herokuapp.com/api/customers/');
 }
 
-export function createCustomer(customer){
+function createCustomer(customer){
     let data = {
         gender: 1,
         first_name: "Hello",
@@ -29,18 +29,21 @@ export function createCustomer(customer){
 
 }
 
-export function login(username, password){
+function login(email, password){
     let data = {
-        username,
+        email,
         password
     };
     let auth = {
         username: 'admin',
         password: 'admin'
     };
+    console.log(data)
     Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/login",
                 data,
                 {auth: auth}).then(function(response){
                     alert(response.status);
                 })
 }   
+
+export { login, getAllCustomers, createCustomer };

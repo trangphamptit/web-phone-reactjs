@@ -4,7 +4,7 @@ import "./Login.css";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-import login from "../../services/CustomerServices";
+import { login } from "../../services/CustomerServices";
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ export default class Login extends Component {
       let email = this.state.email;
       let password = this.state.password;
       login(email, password);
-      alert(email);
     } catch (e) {
       alert(e.message());
     }

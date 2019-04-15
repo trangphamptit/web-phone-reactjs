@@ -75,7 +75,7 @@ class Navbar extends Component {
               type="button"
               data-toggle="dropdown"
             >
-              <i class="fa fa-user" aria-hidden="true" />
+              <i className="fa fa-user" aria-hidden="true" />
               <span className="caret" />
             </button>
             <ul className="dropdown-menu">
