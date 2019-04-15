@@ -69,14 +69,24 @@ class Navbar extends Component {
           </form>
           {/* end search form */}
 
-          {/* login */}
-          <Link className="login my-2 mr-auto " to="/login">
-            đăng nhập
-          </Link>
-          {/* sign up */}
-          <Link className="login my-2 mr-auto " to="/login">
-            đăng ký
-          </Link>
+          <div className="dropdown mr-auto">
+            <button
+              className="btn btn-success dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+            >
+              <i class="fa fa-user" aria-hidden="true" />
+              <span className="caret" />
+            </button>
+            <ul className="dropdown-menu">
+              <Link to="/login" className="login dropdown-item">
+                đăng nhập
+              </Link>
+              <Link to="/login" className="sign-up dropdown-item">
+                Đăng ký
+              </Link>
+            </ul>
+          </div>
         </div>
       </NavWrapper>
     );
@@ -91,10 +101,13 @@ const NavWrapper = styled.nav`
   }
   .login,
   .sign-up {
-    color: var(--mainWhite) !important;
+    color: var(--mainDark) !important;
     font-size: 1.3rem;
     text-transform: capitalize !important;
     text-decoration: none;
+  }
+  .dropdown-item:hover {
+    background-color: var(--mainGreen) !important;
   }
 `;
 
