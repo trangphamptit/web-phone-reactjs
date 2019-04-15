@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
-import { ProductProvider } from "../Context";
+import { ProductConsumer } from "../Context";
+import { getProductTypeCode } from '../services/ProductServices'
 
 import Axios from "axios";
 
@@ -26,6 +27,7 @@ class Navbar extends Component {
     Axios.get("http://api-mobile-shopping.herokuapp.com/api/ref-product/")
       .then(response =>
         response.data.results.map(refProduct => ({
+          id: refProduct.id,
           product_type_code: `${refProduct.product_type_code}`,
           product_type_description: `${refProduct.product_type_description}`
         }))
@@ -33,29 +35,48 @@ class Navbar extends Component {
       .then(refProducts => this.setState({ refProducts }));
   }
 
-  provideNewData(id) {
-    return (
-      <ProductProvider
-        value={{
-          setNewUrl:
-            "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
-            id
-        }}
-      />
-    );
+  onItemClick(value, item){
+    let url = "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" + item.id
+    value.setNewUrl(url);
+    Axios.get(url)
+      .then(response =>
+        response.data.results.map(products => ({
+          id: `${products.id}`,
+          title: `${products.product_name}`,
+          price: Number.parseInt(`${products.product_price}`),
+          img: `${products.product_image}`,
+          company: `${products.product_type_code}`,
+          inCart: false
+        }))
+      )
+      .then(products => {
+        products.forEach(product => {
+          getProductTypeCode(product.company).then(
+            company => (product.company = company)
+          );
+        });
+        value.updateProducts(products);
+      });
+    
   }
 
   renderRefProducts() {
     if (this.state.refProducts.length > 0) {
-      return this.state.refProducts.map(item => (
-        <Link
-          to="/"
-          className="dropdown-item"
-          onClick={item => this.provideNewData(item.id)}
-        >
-          {item.product_type_code}
-        </Link>
-      ));
+      return (<ProductConsumer>
+          {value => (
+            this.state.refProducts.map(item => {
+              let boundItemClick = this.onItemClick.bind(this, value, item)
+              return (<Link
+                to="/"
+                className="dropdown-item"
+                onClick={boundItemClick}
+              >
+                {item.product_type_code}
+              </Link>)
+              }
+            ))
+          }
+        </ProductConsumer>);
     }
   }
 
@@ -80,7 +101,7 @@ class Navbar extends Component {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
               <Link
-                to="/cart"
+                to="/"
                 className="nav-link dropdown-toggle"
                 id="navbarDropdown"
                 role="button"
