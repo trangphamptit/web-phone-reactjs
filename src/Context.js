@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import { storeProducts, detailProduct } from "./data";
 import Product from "./components/Product";
+import Axios from "axios";
+import { getProductTypeCode } from "./services/ProductServices";
 
 // const ProductContext = React.createContext();
 // //Provider
 // //Consumer
 
 // export default class ProductProvider extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       products: [],
-//       detailProduct: [],
-//       isLoading: false
-//     };
-//   }
 //   componentDidMount() {
 //     this.setState({ isLoading: true });
 //     var that = this;
@@ -37,35 +31,6 @@ import Product from "./components/Product";
 //       .catch(error => console.log("parsing failed", error));
 //   }
 
-//   handleDetail = () => {
-//     console.log("hello from detail");
-//   };
-//   addToCart = () => {
-//     console.log("hello from cart");
-//   };
-//   render() {
-//     const { products, detailProduct, isLoading } = this.state;
-//     if (isLoading) {
-//       return <p>Loading ...</p>;
-//     }
-//     console.log(products);
-//     return (
-//       <ProductContext.Provider
-//         value={{
-//           products,
-//           detailProduct,
-//           handleDetail: this.handleDetail,
-//           addToCart: this.addToCart
-//         }}
-//       >
-//         {this.props.children}
-//       </ProductContext.Provider>
-//     );
-//   }
-// }
-// const ProductConsumer = ProductContext.Consumer;
-// export { ProductProvider, ProductConsumer };
-
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
   state = {
@@ -76,22 +41,39 @@ class ProductProvider extends Component {
     modalProduct: detailProduct,
     cartSubTotal: 0,
     // cartTax: 0,
-    cartTotal: 0
+    cartTotal: 0,
+    url: "http://api-mobile-shopping.herokuapp.com/api/products/",
+    setNewUrl: url => {
+      this.setState({ url });
+    }
   };
 
-  componentDidMount() {
-    this.setProducts();
+  setNewUrl(url) {
+    this.setState({ url });
   }
-  setProducts = () => {
-    let tempProducts = [];
-    storeProducts.forEach(item => {
-      const singleItem = { ...item };
-      tempProducts = [...tempProducts, singleItem];
-    });
-    this.setState(() => {
-      return { products: tempProducts };
-    });
-  };
+
+  componentDidMount() {
+    alert(this.state.url);
+    Axios.get(this.state.url)
+      .then(response =>
+        response.data.results.map(products => ({
+          id: `${products.id}`,
+          title: `${products.product_name}`,
+          price: Number.parseInt(`${products.product_price}`),
+          img: `${products.product_image}`,
+          company: `${products.product_type_code}`,
+          inCart: false
+        }))
+      )
+      .then(products => {
+        products.forEach(product => {
+          getProductTypeCode(product.company).then(
+            company => (product.company = company)
+          );
+        });
+        this.setState({ products });
+      });
+  }
 
   getItem = id => {
     const product = this.state.products.find(item => item.id === id);
@@ -104,6 +86,7 @@ class ProductProvider extends Component {
       return { detailProduct: product };
     });
   };
+
   addToCart = id => {
     let tempProducts = [...this.state.products];
     const index = tempProducts.indexOf(this.getItem(id));
@@ -124,6 +107,7 @@ class ProductProvider extends Component {
       }
     );
   };
+
   openModal = id => {
     const product = this.getItem(id);
     this.setState(() => {
