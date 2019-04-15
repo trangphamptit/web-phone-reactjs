@@ -3,15 +3,67 @@ import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
+import { ProductProvider } from "../Context";
+
+import Axios from "axios";
+
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refProducts: [
+        {
+          product_type_code: "",
+          product_type_description: ""
+        }
+      ]
+    };
+
+    // this.renderRefProducts = this.renderRefProducts.bind(this);
+  }
+
+  componentDidMount() {
+    Axios.get("http://api-mobile-shopping.herokuapp.com/api/ref-product/")
+      .then(response =>
+        response.data.results.map(refProduct => ({
+          product_type_code: `${refProduct.product_type_code}`,
+          product_type_description: `${refProduct.product_type_description}`
+        }))
+      )
+      .then(refProducts => this.setState({ refProducts }));
+  }
+
+  provideNewData(id) {
+    return (
+      <ProductProvider
+        value={{
+          setNewUrl:
+            "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
+            id
+        }}
+      />
+    );
+  }
+
+  renderRefProducts() {
+    if (this.state.refProducts.length > 0) {
+      return this.state.refProducts.map(item => (
+        <Link
+          to="/"
+          className="dropdown-item"
+          onClick={item => this.provideNewData(item.id)}
+        >
+          {item.product_type_code}
+        </Link>
+      ));
+    }
+  }
+
   render() {
     return (
       <NavWrapper className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Link to="/">
           <img src={logo} alt="store" className="navbar-brand" />
-          {/*<span>
-            <i class="fas fa-home" />
-          </span>*/}
         </Link>
         <button
           className="navbar-toggler"
@@ -39,16 +91,7 @@ class Navbar extends Component {
                 Danh mục sản phẩm
               </Link>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link to="/cart" className="dropdown-item">
-                  Action
-                </Link>
-                <Link to="/default" className="dropdown-item">
-                  Action
-                </Link>
-                <div className="dropdown-divider" />
-                <Link to="/cart" className="dropdown-item">
-                  Action
-                </Link>
+                {this.renderRefProducts()}
               </div>
             </li>
           </ul>
@@ -87,6 +130,15 @@ class Navbar extends Component {
               </Link>
             </ul>
           </div>
+
+          <Link to="/cart" className="ml-auto">
+            <ButtonContainer>
+              <span className="mr-2">
+                <i className="fas fa-cart-plus" />
+              </span>
+              Giỏ hàng
+            </ButtonContainer>
+          </Link>
         </div>
       </NavWrapper>
     );
