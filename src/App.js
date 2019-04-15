@@ -18,6 +18,7 @@ import Details from "./components/Details";
 import Default from "./components/Default";
 import Cart from "./components/Cart/Cart";
 import Modal from "./components/Modal";
+import CurrencyFormat from "react-currency-format";
 class App extends Component {
   render() {
     return (
