@@ -34,12 +34,13 @@ export function login(username, password){
         username,
         password
     };
-    alert(data);
     let auth = {
         username: 'admin',
         password: 'admin'
     };
-    // Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/",
-    //             data,
-    //             {auth: auth})
+    Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/login",
+                data,
+                {auth: auth}).then(function(response){
+                    alert(response.status);
+                })
 }   

@@ -63,12 +63,10 @@ export default class Login extends Component {
               id="password"
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary btn-lg btn-block"
-            disabled={!this.validateForm}
-          >
-            Login
+          <button 
+            type="submit" 
+            className="btn btn-primary btn-lg btn-block" 
+            disabled={!this.validateForm}>Login
           </button>
         </form>
       </div>
