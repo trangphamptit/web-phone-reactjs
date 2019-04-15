@@ -6,10 +6,13 @@ import { ButtonContainer } from "./Button";
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a className="navbar-brand" href="#">
-          SmartPhone
-        </a>
+      <NavWrapper className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link to="/">
+          <img src={logo} alt="store" className="navbar-brand" />
+          {/*<span>
+            <i class="fas fa-home" />
+          </span>*/}
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -23,48 +26,34 @@ class Navbar extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">
-                Trang chủ <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Link
-              </a>
-            </li>
             <li className="nav-item dropdown">
-              <a
+              <Link
+                to="/cart"
                 className="nav-link dropdown-toggle"
-                href="#"
                 id="navbarDropdown"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Dropdown
-              </a>
+                Danh mục sản phẩm
+              </Link>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">
+                <Link to="/cart" className="dropdown-item">
                   Action
-                </a>
-                <a className="dropdown-item" href="#">
-                  Another action
-                </a>
+                </Link>
+                <Link to="/default" className="dropdown-item">
+                  Action
+                </Link>
                 <div className="dropdown-divider" />
-                <a className="dropdown-item" href="#">
-                  Something else here
-                </a>
+                <Link to="/cart" className="dropdown-item">
+                  Action
+                </Link>
               </div>
             </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">
-                Disabled
-              </a>
-            </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
+          {/* search form */}
+          <form className="form-inline my-2 my-lg-0 mr-auto">
             <input
               className="form-control mr-sm-2"
               type="search"
@@ -78,8 +67,28 @@ class Navbar extends Component {
               Search
             </button>
           </form>
+          {/* end search form */}
+
+          <div className="dropdown mr-auto">
+            <button
+              className="btn btn-success dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+            >
+              <i class="fa fa-user" aria-hidden="true" />
+              <span className="caret" />
+            </button>
+            <ul className="dropdown-menu">
+              <Link to="/login" className="login dropdown-item">
+                đăng nhập
+              </Link>
+              <Link to="/login" className="sign-up dropdown-item">
+                Đăng ký
+              </Link>
+            </ul>
+          </div>
         </div>
-      </nav>
+      </NavWrapper>
     );
   }
 }
@@ -89,6 +98,16 @@ const NavWrapper = styled.nav`
     color: var(--mainWhite) !important;
     font-size: 1.3rem;
     text-transform: capitalize !important;
+  }
+  .login,
+  .sign-up {
+    color: var(--mainDark) !important;
+    font-size: 1.3rem;
+    text-transform: capitalize !important;
+    text-decoration: none;
+  }
+  .dropdown-item:hover {
+    background-color: var(--mainGreen) !important;
   }
 `;
 
