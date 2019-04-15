@@ -20,8 +20,8 @@ import Cart from "./components/Cart/Cart";
 import Modal from "./components/Modal";
 class App extends Component {
   render() {
-    let a = getAllProducts();
-    a.then(response => console.log(response));
+    // let a = getAllProducts();
+    // a.then(response => console.log(response));
     return (
       <React.Fragment>
         <Navbar />

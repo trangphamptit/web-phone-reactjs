@@ -4,6 +4,8 @@ import "./Login.css";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 
+import login from '../../services/CustomerServices';
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,15 @@ export default class Login extends Component {
   };
 
   handleSubmit = event => {
+    try{
+        let email = this.state.email;
+        let password = this.state.password;
+        login(email, password);
+        alert(email);
+    }
+    catch(e){
+        alert(e.message());
+    }
     event.preventDefault();
   };
 
@@ -53,12 +64,19 @@ export default class Login extends Component {
               id="password"
             />
           </div>
+<<<<<<< HEAD
+          <button 
+            type="submit" 
+            className="btn btn-primary btn-lg btn-block" 
+            disabled={!this.validateForm}>Login
+=======
           <button
             type="submit"
             className="btn btn-primary btn-lg btn-block"
             disabled={!this.validateForm}
           >
             Login
+>>>>>>> aefef43c4a43b3a52c8d7c1e1e1d3f72505f9969
           </button>
         </form>
       </div>

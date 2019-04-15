@@ -17,7 +17,7 @@ export function createCustomer(customer){
     let auth = {
         username: 'admin',
         password: 'admin'
-      }
+    };
 
     Axios.post('https://api-mobile-shopping.herokuapp.com/api/customers/', 
                 data, 
@@ -28,3 +28,18 @@ export function createCustomer(customer){
                     });
 
 }
+
+export function login(username, password){
+    let data = {
+        username,
+        password
+    };
+    alert(data);
+    let auth = {
+        username: 'admin',
+        password: 'admin'
+    };
+    // Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/",
+    //             data,
+    //             {auth: auth})
+}   
