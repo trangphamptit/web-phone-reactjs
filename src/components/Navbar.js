@@ -87,6 +87,15 @@ class Navbar extends Component {
               </Link>
             </ul>
           </div>
+
+          <Link to="/cart" className="ml-auto">
+            <ButtonContainer>
+              <span className="mr-2">
+                <i className="fas fa-cart-plus" />
+              </span>
+              Giỏ hàng
+            </ButtonContainer>
+          </Link>
         </div>
       </NavWrapper>
     );
