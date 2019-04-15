@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,11 +22,11 @@ export default class Login extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
-  }
+  };
 
   render() {
     return (
@@ -34,27 +34,31 @@ export default class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email address:</label>
-            <input 
-                type="email" 
-                onChange={this.handleChange}
-                autoFocus 
-                className="form-control" 
-                value={this.state.email} 
-                id="email"/>
+            <input
+              type="email"
+              onChange={this.handleChange}
+              autoFocus
+              className="form-control"
+              value={this.state.email}
+              id="email"
+            />
           </div>
           <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input 
-                type="password"
-                className="form-control"
-                value={this.state.password}
-                onChange={this.handleChange}
-                id="password"/>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              className="form-control"
+              value={this.state.password}
+              onChange={this.handleChange}
+              id="password"
+            />
           </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary btn-lg btn-block" 
-            disabled={!this.validateForm} >Login
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg btn-block"
+            disabled={!this.validateForm}
+          >
+            Login
           </button>
         </form>
       </div>

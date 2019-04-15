@@ -6,39 +6,80 @@ import { ButtonContainer } from "./Button";
 class Navbar extends Component {
   render() {
     return (
-      <NavWrapper className="navbar navbar-expand-sm bg-danger navbar-dark px-sm-5">
-        {/* https://www.iconfinder.com/icons/1243689/call_phone_icon
-Creative Commons (Attribution 3.0 Unported);
-https://www.iconfinder.com/Makoto_msk  */}
-
-        <Link to="/">
-          <img src={logo} alt="store" className="navbar-brand" />
-          {/*<span>
-            <i class="fas fa-home" />
-          </span>*/}
-        </Link>
-        <ul className="navbar-nav align-items-center">
-          <li className="nav-item ml-5">
-            <Link to="/" className="nav-link">
-              Products
-            </Link>
-          </li>
-          <li className="nav-item ml-5">
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-          </li>
-        </ul>
-        <input type="text" placeholder="Search.." />
-        <Link to="/cart" className="ml-auto">
-          <ButtonContainer>
-            <span className="mr-2">
-              <i className="fas fa-cart-plus" />
-            </span>
-            my cart
-          </ButtonContainer>
-        </Link>
-      </NavWrapper>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a className="navbar-brand" href="#">
+          SmartPhone
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <a className="nav-link" href="#">
+                Trang chủ <span className="sr-only">(current)</span>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Link
+              </a>
+            </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a className="dropdown-item" href="#">
+                  Action
+                </a>
+                <a className="dropdown-item" href="#">
+                  Another action
+                </a>
+                <div className="dropdown-divider" />
+                <a className="dropdown-item" href="#">
+                  Something else here
+                </a>
+              </div>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link disabled" href="#">
+                Disabled
+              </a>
+            </li>
+          </ul>
+          <form className="form-inline my-2 my-lg-0">
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
     );
   }
 }
