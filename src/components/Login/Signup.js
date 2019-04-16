@@ -49,7 +49,7 @@ class Signup extends Component {
       <div className="Sign-up">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="first_tname">Tên: </label>
+            <label htmlFor="first_name">Tên: </label>
             <input
               type="text"
               onChange={this.handleChange}
