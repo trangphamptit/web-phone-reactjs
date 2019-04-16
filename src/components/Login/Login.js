@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
-
+import { ProductConsumer } from "../../Context";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 import { login } from "../../services/CustomerServices";
@@ -12,7 +12,8 @@ export default class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: ""
     };
   }
 
@@ -26,49 +27,55 @@ export default class Login extends Component {
     });
   };
 
-  handleSubmit = event => {
-    try {
-      let email = this.state.email;
-      let password = this.state.password;
-      login(email, password);
-    } catch (e) {
-      alert(e.message());
-    }
+  handleSubmit(event, value) {
+    
+    let email = this.state.email;
+    let password = this.state.password;
+    login(email, password)
+    .then(response => value.updateCustomer(response.data))
+    .catch(e => this.setState({error:"Tài khoản hoặc mật khẩu chưa đúng"}));
     event.preventDefault();
   };
 
   render() {
     return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email address:</label>
-            <input
-              type="email"
-              onChange={this.handleChange}
-              autoFocus
-              className="form-control"
-              value={this.state.email}
-              id="email"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              value={this.state.password}
-              onChange={this.handleChange}
-              id="password"
-            />
-          </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary btn-lg btn-block" 
-            disabled={!this.validateForm}>Login
-          </button>
-        </form>
-      </div>
+      <ProductConsumer>
+      {value => {
+
+        return (<div className="Login">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>{this.state.error}</label>
+              <label htmlFor="email">Email address:</label>
+              <input
+                type="email"
+                onChange={this.handleChange}
+                autoFocus
+                className="form-control"
+                value={this.state.email}
+                id="email"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                value={this.state.password}
+                onChange={this.handleChange}
+                id="password"
+              />
+            </div>
+            <button 
+              type="submit" 
+              className="btn btn-primary btn-lg btn-block" 
+              disabled={!this.validateForm}>Login
+            </button>
+          </form>
+        </div>)
+      }
+      }
+      </ProductConsumer>
     );
   }
 }

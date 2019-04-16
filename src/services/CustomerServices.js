@@ -39,13 +39,11 @@ function login(email, password) {
     username: "admin",
     password: "admin"
   };
-  Axios.post(
+  return Axios.post(
     apiLinks.login,
     data,
     { auth: auth }
-  ).then(function(response) {
-    alert(response.status);
-  });
+  );
 }
 
 export { login, getAllCustomers, createCustomer };

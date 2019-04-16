@@ -152,6 +152,7 @@ class Navbar extends Component {
                   className="btn btn-success dropdown-toggle"
                   type="button"
                   data-toggle="dropdown"
+                  disabled={value.customer !== {}}
                 >
                   <i className="fa fa-user" aria-hidden="true" />
                   <span className="caret" />

@@ -21,7 +21,12 @@ class ProductProvider extends Component {
       // cartTax: 0,
       cartTotal: 0,
       url: apiLinks.products,
+      customer: {},
     };
+  }
+
+  updateCustomer = customer => {
+    this.setState({ customer })
   }
 
   updateProducts = products => {
@@ -187,7 +192,8 @@ class ProductProvider extends Component {
           removeItem: this.removeItem,
           setNewUrl: this.setNewUrl,
           updateProducts: this.updateProducts,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          updateCustomer: this.updateCustomer
         }}
       >
         {this.props.children}
