@@ -4,8 +4,7 @@ import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
 import { ProductConsumer } from "../Context";
-import { getProductTypeCode } from '../services/ProductServices'
-
+import { getProductTypeCode } from "../services/ProductServices";
 import Axios from "axios";
 
 class Navbar extends Component {
@@ -28,8 +27,10 @@ class Navbar extends Component {
       .then(refProducts => this.setState({ refProducts }));
   }
 
-  onItemClick(value, item){
-    let url = "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" + item.id
+  onItemClick(value, item) {
+    let url =
+      "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
+      item.id;
     value.setNewUrl(url);
     Axios.get(url)
       .then(response =>
@@ -50,26 +51,24 @@ class Navbar extends Component {
         });
         value.updateProducts(products);
       });
-    
   }
 
   renderRefProducts() {
     if (this.state.refProducts.length > 0) {
-      return (<ProductConsumer>
-          {value => (
+      return (
+        <ProductConsumer>
+          {value =>
             this.state.refProducts.map(item => {
-              let boundItemClick = this.onItemClick.bind(this, value, item)
-              return (<Link
-                to="/"
-                className="dropdown-item"
-                onClick={boundItemClick}
-              >
-                {item.product_type_code}
-              </Link>)
-              }
-            ))
+              let boundItemClick = this.onItemClick.bind(this, value, item);
+              return (
+                <Link to="/" className="dropdown-item" onClick={boundItemClick}>
+                  {item.product_type_code}
+                </Link>
+              );
+            })
           }
-        </ProductConsumer>);
+        </ProductConsumer>
+      );
     }
   }
 
@@ -139,7 +138,10 @@ class Navbar extends Component {
               <Link to="/login" className="login dropdown-item">
                 đăng nhập
               </Link>
-              <Link to="/login" className="sign-up dropdown-item">
+              <Link
+                to="/createCustomer"
+                className="createCustomer dropdown-item"
+              >
                 Đăng ký
               </Link>
             </ul>
