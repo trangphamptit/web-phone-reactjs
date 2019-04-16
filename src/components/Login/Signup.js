@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import { createCustomer } from "../../services/CustomerServices";
 import "./Signup.css";
-import { RadioGroup, Radio } from "react-radio-group";
-// gender: 1,
-// first_name: "Hello",
-// last_name: "My Friend",
-// email_address: "hello@gmail.com",
-// login_name: "hello",
-// login_password: "123"
+
 class Signup extends Component {
   constructor(props) {
     super(props);

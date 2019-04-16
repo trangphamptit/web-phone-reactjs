@@ -3,6 +3,8 @@ import { detailProduct } from "./data";
 import Product from "./components/Product";
 import Axios from "axios";
 import { getProductTypeCode, processProducts } from "./services/ProductServices";
+import { apiLinks } from "./services/ApiLink"
+
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
@@ -18,7 +20,7 @@ class ProductProvider extends Component {
       cartSubTotal: 0,
       // cartTax: 0,
       cartTotal: 0,
-      url: "http://api-mobile-shopping.herokuapp.com/api/products/",
+      url: apiLinks.products,
     };
   }
 

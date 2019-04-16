@@ -1,7 +1,8 @@
 import Axios from "axios";
+import { apiLinks } from "./ApiLink"
 
 function getAllCustomers() {
-  return Axios.get("https://api-mobile-shopping.herokuapp.com/api/customers/");
+  return Axios.get(apiLinks.customers);
 }
 
 function createCustomer(customer) {
@@ -18,9 +19,7 @@ function createCustomer(customer) {
     password: "admin"
   };
 
-  console.log(data);
-
-  Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/", data, {
+  Axios.post(apiLinks.customers, data, {
     auth: auth
   })
     .then(function(response) {
@@ -40,9 +39,8 @@ function login(email, password) {
     username: "admin",
     password: "admin"
   };
-  console.log(data);
   Axios.post(
-    "https://api-mobile-shopping.herokuapp.com/api/customers/login",
+    apiLinks.login,
     data,
     { auth: auth }
   ).then(function(response) {

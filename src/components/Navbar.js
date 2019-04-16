@@ -4,7 +4,14 @@ import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
 import { ProductConsumer } from "../Context";
-import { getProductTypeCode, searchProducts, processProducts } from '../services/ProductServices'
+import { 
+  getProductTypeCode, 
+  searchProducts, 
+  processProducts, 
+  getAllProductTypeCode,
+  processProductTypeCode,
+  getProductsByTypeCode
+} from '../services/ProductServices'
 
 import Axios from "axios";
 
@@ -18,26 +25,15 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://api-mobile-shopping.herokuapp.com/api/ref-product/")
-      .then(response =>
-        response.data.results.map(refProduct => ({
-          id: refProduct.id,
-          product_type_code: `${refProduct.product_type_code}`,
-          product_type_description: `${refProduct.product_type_description}`
-        }))
+    getAllProductTypeCode()
+      .then(refProducts =>
+        processProductTypeCode(refProducts)
       )
       .then(refProducts => this.setState({ refProducts }));
   }
 
   onItemClick(value, item) {
-    let url =
-      "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
-      item.id;
-    value.setNewUrl(url);
-    Axios.get(url)
-      .then(response =>
-        processProducts(response.data.results)
-      )
+    getProductsByTypeCode(item.id)
       .then(products => {
         products.forEach(product => {
           getProductTypeCode(product.company).then(
