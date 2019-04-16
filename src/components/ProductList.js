@@ -18,6 +18,7 @@ class ProductList extends Component {
                   });
                 }}
               </ProductConsumer>
+              <Pagination />
             </div>
           </div>
         </div>

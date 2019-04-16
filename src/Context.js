@@ -6,31 +6,27 @@ import { getProductTypeCode } from "./services/ProductServices";
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      products: [],
-      detailProduct: detailProduct,
-      cart: [],
-      modalOpen: false,
-      modalProduct: detailProduct,
-      cartSubTotal: 0,
-      // cartTax: 0,
-      cartTotal: 0,
-      url: "http://api-mobile-shopping.herokuapp.com/api/products/",
-    };
-  }
-
-  updateProducts = products => {
-    this.setState({ products })
-  }
-
-  setNewUrl = url => {
-    this.setState({ url });
+  state = {
+    products: [],
+    detailProduct: detailProduct,
+    cart: [],
+    modalOpen: false,
+    modalProduct: detailProduct,
+    cartSubTotal: 0,
+    // cartTax: 0,
+    cartTotal: 0,
+    url: "http://api-mobile-shopping.herokuapp.com/api/products/",
+    setNewUrl: url => {
+      this.setState({ url });
+    }
   };
 
+  setNewUrl(url) {
+    this.setState({ url });
+  }
+
   componentDidMount() {
+    alert(this.state.url);
     Axios.get(this.state.url)
       .then(response =>
         response.data.results.map(products => ({
@@ -39,7 +35,8 @@ class ProductProvider extends Component {
           price: Number.parseInt(`${products.product_price}`),
           img: `${products.product_image}`,
           company: `${products.product_type_code}`,
-          inCart: false
+          inCart: false,
+          colors: `${products.colors}`
         }))
       )
       .then(products => {
@@ -171,14 +168,11 @@ class ProductProvider extends Component {
   addTotals = () => {
     let subTotal = 0;
     this.state.cart.map(item => (subTotal += item.total));
-    // const tempTax = subTotal * 0.1;
-    // const tax = parseFloat(tempTax.toFixed(2));
 
     const total = subTotal + 30;
     this.setState(() => {
       return {
         cartSubTotal: subTotal,
-        // cartTax: tax,
         cartTotal: total
       };
     });
@@ -195,9 +189,7 @@ class ProductProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart,
-          setNewUrl: this.setNewUrl,
-          updateProducts: this.updateProducts
+          clearCart: this.clearCart
         }}
       >
         {this.props.children}
