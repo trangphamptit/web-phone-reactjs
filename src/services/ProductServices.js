@@ -7,11 +7,17 @@ function getProductTypeCode(url) {
   return Axios.get(url).then(response => response.data.product_type_code);
 }
 
-function searchProducts(query){
-  return Axios.get("https://api-mobile-shopping.herokuapp.com/api/products/?q="+query).then(response => response.data.results);
+function getColors(url) {
+  return Axios.get(url).then(response => response.data.color_description);
 }
 
-function processProducts(products){
+function searchProducts(query) {
+  return Axios.get(
+    "https://api-mobile-shopping.herokuapp.com/api/products/?q=" + query
+  ).then(response => response.data.results);
+}
+
+function processProducts(products) {
   return products.map(product => ({
     id: `${product.id}`,
     title: `${product.product_name}`,
@@ -19,8 +25,14 @@ function processProducts(products){
     img: `${product.product_image}`,
     company: `${product.product_type_code}`,
     inCart: false,
-    colors: `${product.colors}`
-  }))
+    colors: `${product.product_colors}`
+  }));
 }
 
-export { getAllProducts, getProductTypeCode, searchProducts, processProducts };
+export {
+  getAllProducts,
+  getProductTypeCode,
+  searchProducts,
+  processProducts,
+  getColors
+};

@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { ProductConsumer } from "../Context";
 import "./../App.css";
 import PropTypes from "prop-types";
+
 var CurrencyFormat = require("react-currency-format");
 class Product extends Component {
   // state =
   render() {
-    const { id, title, img, price, inCart } = this.props.product;
+    const { id, title, img, price, inCart, colors } = this.props.product;
 
     return (
       <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
@@ -53,7 +54,7 @@ class Product extends Component {
               displayType={"text"}
               thousandSeparator={true}
             />
-            {/* {price} */}
+
             <span className="mr-1">đ</span>
           </h5>
         </div>

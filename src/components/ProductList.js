@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Product from "./Product";
 import Title from "./Title";
 import { ProductConsumer, ProductProvider } from "../Context";
-import Pagination from "./Pagination";
 class ProductList extends Component {
   render() {
     return (
@@ -18,7 +17,6 @@ class ProductList extends Component {
                   });
                 }}
               </ProductConsumer>
-              <Pagination />
             </div>
           </div>
         </div>

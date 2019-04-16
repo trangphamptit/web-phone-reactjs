@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 export default function CartTotals({ value }) {
-  const { cartSubTotal, cartTax, cartTotal, clearCart } = value;
+  const { cartSubTotal, cartTotal, clearCart } = value;
 
   return (
     <React.Fragment>
       <div className="container">
         <div className="row">
           <div className="col-10 mt-2 ml-sm-5 ml-md-auto col-sm-8 text-capitalize text-right" />
-          <Link to="/">
+          <Link to="/cart">
             <button
               className="btn btn-outline-danger text-uppercase mb-3 px-5"
               type="button"
-              onclick={() => clearCart()}
+              onClick={() => clearCart()}
             >
               Xóa giỏ hàng
             </button>
@@ -20,17 +20,17 @@ export default function CartTotals({ value }) {
         </div>
         <h5>
           <span className="text-title">Tổng số tiền:</span>
-          <strong>${cartSubTotal}</strong>
+          <strong>{cartSubTotal} đ</strong>
         </h5>
 
         <h5>
           <span className="text-title">Phí vận chuyển:</span>
-          <strong>$30</strong>
+          <strong>30000đ</strong>
         </h5>
 
         <h5>
           <span className="text-title">Hóa đơn:</span>
-          <strong>${cartTotal}</strong>
+          <strong>{cartTotal}đ</strong>
         </h5>
         <Link to="/">
           <button

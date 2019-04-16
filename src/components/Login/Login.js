@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-// import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
-
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 import { login } from "../../services/CustomerServices";
 
@@ -62,10 +59,12 @@ export default class Login extends Component {
               id="password"
             />
           </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary btn-lg btn-block" 
-            disabled={!this.validateForm}>Login
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg btn-block"
+            disabled={!this.validateForm}
+          >
+            Login
           </button>
         </form>
       </div>

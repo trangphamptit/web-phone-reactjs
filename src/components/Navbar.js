@@ -4,7 +4,12 @@ import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
 import { ProductConsumer } from "../Context";
-import { getProductTypeCode, searchProducts, processProducts } from '../services/ProductServices'
+import {
+  getProductTypeCode,
+  searchProducts,
+  processProducts,
+  getColors
+} from "../services/ProductServices";
 
 import Axios from "axios";
 
@@ -29,20 +34,20 @@ class Navbar extends Component {
       .then(refProducts => this.setState({ refProducts }));
   }
 
+  //
   onItemClick(value, item) {
     let url =
       "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
       item.id;
     value.setNewUrl(url);
     Axios.get(url)
-      .then(response =>
-        processProducts(response.data.results)
-      )
+      .then(response => processProducts(response.data.results))
       .then(products => {
         products.forEach(product => {
           getProductTypeCode(product.company).then(
             company => (product.company = company)
           );
+          // getColors(product.colors)
         });
         value.updateProducts(products);
       });
@@ -87,8 +92,9 @@ class Navbar extends Component {
       } else {
         console.log(this.state.search);
         searchProducts(this.state.search).then(products => {
-          products = processProducts(products)
-          value.updateProducts(products)});
+          products = processProducts(products);
+          value.updateProducts(products);
+        });
       }
     } catch (e) {
       alert(e.message());

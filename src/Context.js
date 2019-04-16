@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import { detailProduct } from "./data";
+import { detailProduct, storeProducts } from "./data";
 import Product from "./components/Product";
 import Axios from "axios";
-import { getProductTypeCode, processProducts } from "./services/ProductServices";
+import {
+  getProductTypeCode,
+  processProducts,
+  getColors
+} from "./services/ProductServices";
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -16,19 +20,18 @@ class ProductProvider extends Component {
       modalOpen: false,
       modalProduct: detailProduct,
       cartSubTotal: 0,
-      // cartTax: 0,
       cartTotal: 0,
-      url: "http://api-mobile-shopping.herokuapp.com/api/products/",
+      url: "http://api-mobile-shopping.herokuapp.com/api/products/"
     };
   }
 
   updateProducts = products => {
-    this.setState({ products })
-  }
+    this.setState({ products });
+  };
 
   setNewUrl = url => {
     this.setState({ url });
-  }
+  };
 
   componentDidMount() {
     Axios.get(this.state.url)
@@ -41,7 +44,25 @@ class ProductProvider extends Component {
         });
         this.setState({ products });
       });
+    // .then(products => {
+    //   products.forEach(product => {
+    //     getColors(product.colors).then(colors => (product.colors = colors));
+    //   });
+    // });
   }
+
+  setProducts = () => {
+    Axios.get(this.state.url)
+      .then(response => processProducts(response.data.results))
+      .then(products => {
+        products.forEach(product => {
+          getProductTypeCode(product.company).then(
+            company => (product.company = company)
+          );
+        });
+        this.setState({ products });
+      });
+  };
 
   getItem = id => {
     const product = this.state.products.find(item => item.id === id);
@@ -56,7 +77,7 @@ class ProductProvider extends Component {
   };
 
   addToCart = id => {
-    let tempProducts = [...this.state.products];
+    let tempProducts = [...this.state.products]; //tạo mangr tạm chứa tất cả product
     const index = tempProducts.indexOf(this.getItem(id));
     const product = tempProducts[index];
     product.inCart = true;
@@ -148,9 +169,12 @@ class ProductProvider extends Component {
       }
     );
   };
+
   clearCart = () => {
+    console.log("clear");
     this.setState(
       () => {
+        console.log("clear");
         return { cart: [] };
       },
       () => {
@@ -171,6 +195,7 @@ class ProductProvider extends Component {
       };
     });
   };
+
   render() {
     return (
       <ProductContext.Provider
@@ -185,7 +210,8 @@ class ProductProvider extends Component {
           removeItem: this.removeItem,
           setNewUrl: this.setNewUrl,
           updateProducts: this.updateProducts,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          setProducts: this.setProducts
         }}
       >
         {this.props.children}

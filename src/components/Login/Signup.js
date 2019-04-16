@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { createCustomer } from "../../services/CustomerServices";
 import "./Signup.css";
 import { RadioGroup, Radio } from "react-radio-group";
-// gender: 1,
-// first_name: "Hello",
-// last_name: "My Friend",
-// email_address: "hello@gmail.com",
-// login_name: "hello",
-// login_password: "123"
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -52,10 +47,10 @@ class Signup extends Component {
             <label htmlFor="first_name">Tên: </label>
             <input
               type="text"
-              onChange={this.handleChange}
+              onChange={this.handleChange} //xử lý sự kiện onchange của các input và gán cho các biến trạng thái khi giá trị trong input thay đổi
               autoFocus
               className="form-control"
-              value={this.state.first_name}
+              value={this.state.first_name} //thêm các biến trạng thái vào mỗi input để đọc giá trị của input
               id="first_name"
             />
           </div>
@@ -83,14 +78,6 @@ class Signup extends Component {
                 nữ{" "}
               </label>
             </RadioGroup>
-
-            {/* <input
-              type="text"
-              onChange={this.handleChange}
-              className="form-control"
-              value={this.state.gender}
-              id="gender"
-            /> */}
           </div>
           <div className="form-group">
             <label htmlFor="email">Email: </label>
