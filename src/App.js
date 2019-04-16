@@ -8,6 +8,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";
 
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path="/details" component={Details} />
           <Route path="/cart" component={Cart} />
           <Route path="/login" exact component={Login} />
+          <Route path="/createCustomer" exact component={Signup} />
           <Route component={Default} />
         </Switch>
         <Modal />

@@ -13,7 +13,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       refProducts: [],
-      search: "",
+      search: ""
     };
   }
 
@@ -29,8 +29,10 @@ class Navbar extends Component {
       .then(refProducts => this.setState({ refProducts }));
   }
 
-  onItemClick(value, item){
-    let url = "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" + item.id
+  onItemClick(value, item) {
+    let url =
+      "http://api-mobile-shopping.herokuapp.com/api/products/ref-product/" +
+      item.id;
     value.setNewUrl(url);
     Axios.get(url)
       .then(response =>
@@ -44,22 +46,18 @@ class Navbar extends Component {
         });
         value.updateProducts(products);
       });
-    
   }
 
   renderRefProducts(value) {
     if (this.state.refProducts.length > 0) {
       return this.state.refProducts.map(item => {
-              let boundItemClick = this.onItemClick.bind(this, value, item)
-              return (<Link
-                to="/"
-                className="dropdown-item"
-                onClick={boundItemClick}
-              >
-                {item.product_type_code}
-              </Link>)
-              }
-            );
+        let boundItemClick = this.onItemClick.bind(this, value, item);
+        return (
+          <Link to="/" className="dropdown-item" onClick={boundItemClick}>
+            {item.product_type_code}
+          </Link>
+        );
+      });
     }
   }
 
@@ -69,23 +67,24 @@ class Navbar extends Component {
     });
   };
 
-  buttonSearch(value){
-    return (<button
-      className="btn btn-outline-success my-2 my-sm-0"
-      type="submit"
-      onClick={event => this.handleSubmit(event, value)}
-    >
-      Search
-    </button>);
+  buttonSearch(value) {
+    return (
+      <button
+        className="btn btn-outline-success my-2 my-sm-0"
+        type="submit"
+        onClick={event => this.handleSubmit(event, value)}
+      >
+        Search
+      </button>
+    );
   }
 
-  handleSubmit(event, value){
+  handleSubmit(event, value) {
     try {
       let search = this.state.search;
-      if(search === "" || search.trim === ""){
+      if (search === "" || search.trim === "") {
         event.preventDefault();
-      }
-      else{
+      } else {
         console.log(this.state.search);
         searchProducts(this.state.search).then(products => {
           products = processProducts(products)
@@ -95,7 +94,7 @@ class Navbar extends Component {
       alert(e.message());
     }
     event.preventDefault();
-  };
+  }
 
   render() {
     return (
@@ -116,36 +115,42 @@ class Navbar extends Component {
             >
               <span className="navbar-toggler-icon" />
             </button>
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul className="navbar-nav mr-auto">
-                    <li className="nav-item dropdown">
-                      <Link
-                        to="/"
-                        className="nav-link dropdown-toggle"
-                        id="navbarDropdown"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Danh mục sản phẩm
-                      </Link>
-                      <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {this.renderRefProducts(value)}
-                      </div>
-                    </li>
-                  </ul>
-                  <form className="form-inline my-2 my-lg-0 mr-auto" action="/">
-                    <input
-                      className="form-control mr-sm-2"
-                      type="search"
-                      placeholder="Search"
-                      aria-label="Search"
-                      onChange={this.handleChange}
-                      id="search"
-                    />
-                    {this.buttonSearch(value)}
-                  </form>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item dropdown">
+                  <Link
+                    to="/"
+                    className="nav-link dropdown-toggle"
+                    id="navbarDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Danh mục sản phẩm
+                  </Link>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    {this.renderRefProducts(value)}
+                  </div>
+                </li>
+              </ul>
+              <form className="form-inline my-2 my-lg-0 mr-auto">
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  onChange={this.handleChange}
+                  id="search"
+                />
+                {this.buttonSearch(value)}
+              </form>
               <div className="dropdown mr-auto">
                 <button
                   className="btn btn-success dropdown-toggle"
