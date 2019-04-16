@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { createCustomer } from "../../services/CustomerServices";
+import "./Signup.css";
+import { RadioGroup, Radio } from "react-radio-group";
 // gender: 1,
 // first_name: "Hello",
 // last_name: "My Friend",
@@ -29,6 +31,7 @@ class Signup extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
+    console.log(this.state.gender);
   };
 
   handleSubmit = event => {
@@ -68,13 +71,26 @@ class Signup extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="gender">Giới tính: </label>
-            <input
+            <br />
+
+            <RadioGroup name="gender" onChange={this.handleChange} id="gender">
+              <label>
+                <Radio value={0} />
+                nam{" "}
+              </label>
+              <label>
+                <Radio value={1} />
+                nữ{" "}
+              </label>
+            </RadioGroup>
+
+            {/* <input
               type="text"
               onChange={this.handleChange}
               className="form-control"
               value={this.state.gender}
               id="gender"
-            />
+            /> */}
           </div>
           <div className="form-group">
             <label htmlFor="email">Email: </label>
@@ -96,6 +112,28 @@ class Signup extends Component {
               id="password"
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="login_name">Tên đăng nhập</label>
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.login_name}
+              onChange={this.handleChange}
+              id="login_name"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="login_password">Mật khẩu đăng nhập</label>
+            <input
+              type="password"
+              className="form-control"
+              value={this.state.login_password}
+              onChange={this.handleChange}
+              id="login_password"
+            />
+          </div>
+
           <button
             type="submit"
             className="btn btn-primary btn-lg btn-block"

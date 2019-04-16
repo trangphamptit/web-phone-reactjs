@@ -8,6 +8,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";
 
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
