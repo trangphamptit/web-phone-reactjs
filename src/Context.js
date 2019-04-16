@@ -6,27 +6,31 @@ import { getProductTypeCode } from "./services/ProductServices";
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
-  state = {
-    products: [],
-    detailProduct: detailProduct,
-    cart: [],
-    modalOpen: false,
-    modalProduct: detailProduct,
-    cartSubTotal: 0,
-    // cartTax: 0,
-    cartTotal: 0,
-    url: "http://api-mobile-shopping.herokuapp.com/api/products/",
-    setNewUrl: url => {
-      this.setState({ url });
-    }
-  };
+  constructor(props){
+    super(props);
 
-  setNewUrl(url) {
+    this.state = {
+      products: [],
+      detailProduct: detailProduct,
+      cart: [],
+      modalOpen: false,
+      modalProduct: detailProduct,
+      cartSubTotal: 0,
+      // cartTax: 0,
+      cartTotal: 0,
+      url: "http://api-mobile-shopping.herokuapp.com/api/products/",
+    };
+  }
+
+  updateProducts = products => {
+    this.setState({ products })
+  }
+
+  setNewUrl = url => {
     this.setState({ url });
   }
 
   componentDidMount() {
-    alert(this.state.url);
     Axios.get(this.state.url)
       .then(response =>
         response.data.results.map(products => ({
@@ -189,6 +193,8 @@ class ProductProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
+          setNewUrl: this.setNewUrl,
+          updateProducts: this.updateProducts,
           clearCart: this.clearCart
         }}
       >
