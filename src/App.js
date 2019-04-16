@@ -3,8 +3,6 @@ import React, { Component } from "react";
 // import
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import getAllProducts from "./services/ProductServices";
-import { getAllCustomer, createCustomer } from "./services/CustomerServices";
 
 // import bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";

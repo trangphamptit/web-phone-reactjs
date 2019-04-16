@@ -12,15 +12,8 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      refProducts: [
-        {
-          product_type_code: "",
-          product_type_description: ""
-        }
-      ]
+      refProducts: []
     };
-
-    // this.renderRefProducts = this.renderRefProducts.bind(this);
   }
 
   componentDidMount() {

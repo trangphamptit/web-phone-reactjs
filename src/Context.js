@@ -1,35 +1,8 @@
 import React, { Component } from "react";
-import { storeProducts, detailProduct } from "./data";
+import { detailProduct } from "./data";
 import Product from "./components/Product";
 import Axios from "axios";
 import { getProductTypeCode } from "./services/ProductServices";
-
-// const ProductContext = React.createContext();
-// //Provider
-// //Consumer
-
-// export default class ProductProvider extends Component {
-//   componentDidMount() {
-//     this.setState({ isLoading: true });
-//     var that = this;
-//     fetch("https://api-mobile-shopping.herokuapp.com/api/products/")
-//       .then(response => response.json())
-//       .then(parsedJson =>
-//         parsedJson.results.map(product => ({
-//           title: `${product.product_name}`,
-//           price: `${product.product_price}`,
-//           img: `${product.product_image}`
-//         }))
-//       )
-//       .then(products =>
-//         that.setState({
-//           products,
-//           detailProduct: detailProduct,
-//           isLoading: false
-//         })
-//       )
-//       .catch(error => console.log("parsing failed", error));
-//   }
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
