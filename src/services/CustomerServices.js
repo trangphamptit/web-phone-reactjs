@@ -6,27 +6,19 @@ function getAllCustomers() {
 
 function createCustomer(customer) {
   let data = {
-    gender: 1,
+    gender: customer.gender,
     first_name: customer.first_name,
     last_name: customer.last_name,
     email_address: customer.email,
-    login_name: "hello",
-    login_password: "123"
+    login_name: customer.login_name,
+    login_password: customer.password
   };
   let auth = {
     username: "admin",
     password: "admin"
   };
 
-  Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/", data, {
-    auth: auth
-  })
-    .then(function(response) {
-      console.log("Authenticated");
-    })
-    .catch(function(error) {
-      console.log("Error on Authentication");
-    });
+  console.log(data);
 
   Axios.post("https://api-mobile-shopping.herokuapp.com/api/customers/", data, {
     auth: auth

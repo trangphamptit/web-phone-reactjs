@@ -164,7 +164,7 @@ class Navbar extends Component {
                   <Link to="/login" className="login dropdown-item">
                     đăng nhập
                   </Link>
-                  <Link to="/login" className="sign-up dropdown-item">
+                  <Link to="/createCustomer" className="sign-up dropdown-item">
                     Đăng ký
                   </Link>
                 </ul>
