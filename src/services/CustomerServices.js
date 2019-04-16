@@ -8,9 +8,9 @@ function getAllCustomers(){
 function createCustomer(customer){
     let data = {
         gender: 1,
-        first_name: "Hello",
-        last_name: "My Friend",
-        email_address: "hello@gmail.com",
+        first_name: customer.first_name,
+        last_name: customer.last_name,
+        email_address: customer.email,
         login_name: "hello",
         login_password: "123"
     };
