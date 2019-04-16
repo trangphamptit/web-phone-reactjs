@@ -11,4 +11,16 @@ function searchProducts(query){
   return Axios.get("https://api-mobile-shopping.herokuapp.com/api/products/?q="+query).then(response => response.data.results);
 }
 
-export { getAllProducts, getProductTypeCode, searchProducts };
+function processProducts(products){
+  return products.map(product => ({
+    id: `${product.id}`,
+    title: `${product.product_name}`,
+    price: Number.parseInt(`${product.product_price}`),
+    img: `${product.product_image}`,
+    company: `${product.product_type_code}`,
+    inCart: false,
+    colors: `${product.colors}`
+  }))
+}
+
+export { getAllProducts, getProductTypeCode, searchProducts, processProducts };
