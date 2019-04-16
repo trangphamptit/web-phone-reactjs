@@ -14,7 +14,8 @@ export default class Details extends Component {
             info,
             price,
             title,
-            inCart
+            inCart,
+            colors
           } = value.detailProduct;
           return (
             <div className="container py-5">
@@ -44,6 +45,9 @@ export default class Details extends Component {
                       Giá: {price}
                       <span>đ</span>
                     </strong>
+                  </h4>
+                  <h4 className="text-blue">
+                    <strong>màu sắc: {colors}</strong>
                   </h4>
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
                     Chi tiết sản phẩm
