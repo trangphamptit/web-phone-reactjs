@@ -4,7 +4,7 @@ import logo from "../logo.svg";
 import styled from "styled-components";
 import { ButtonContainer } from "./Button";
 import { ProductConsumer } from "../Context";
-import { getProductTypeCode, searchProducts } from '../services/ProductServices'
+import { getProductTypeCode, searchProducts, processProducts } from '../services/ProductServices'
 
 import Axios from "axios";
 
@@ -34,14 +34,7 @@ class Navbar extends Component {
     value.setNewUrl(url);
     Axios.get(url)
       .then(response =>
-        response.data.results.map(products => ({
-          id: `${products.id}`,
-          title: `${products.product_name}`,
-          price: Number.parseInt(`${products.product_price}`),
-          img: `${products.product_image}`,
-          company: `${products.product_type_code}`,
-          inCart: false
-        }))
+        processProducts(response.data.results)
       )
       .then(products => {
         products.forEach(product => {
@@ -95,14 +88,7 @@ class Navbar extends Component {
       else{
         console.log(this.state.search);
         searchProducts(this.state.search).then(products => {
-          products = products.map(product => ({
-            id: `${product.id}`,
-            title: `${product.product_name}`,
-            price: Number.parseInt(`${product.product_price}`),
-            img: `${product.product_image}`,
-            company: `${product.product_type_code}`,
-            inCart: false
-          }))
+          products = processProducts(products)
           value.updateProducts(products)});
       }
     } catch (e) {
@@ -149,7 +135,7 @@ class Navbar extends Component {
                       </div>
                     </li>
                   </ul>
-                  <form className="form-inline my-2 my-lg-0 mr-auto">
+                  <form className="form-inline my-2 my-lg-0 mr-auto" action="/">
                     <input
                       className="form-control mr-sm-2"
                       type="search"

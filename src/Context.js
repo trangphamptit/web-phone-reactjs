@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { detailProduct } from "./data";
 import Product from "./components/Product";
 import Axios from "axios";
-import { getProductTypeCode } from "./services/ProductServices";
+import { getProductTypeCode, processProducts } from "./services/ProductServices";
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
@@ -32,17 +32,7 @@ class ProductProvider extends Component {
 
   componentDidMount() {
     Axios.get(this.state.url)
-      .then(response =>
-        response.data.results.map(products => ({
-          id: `${products.id}`,
-          title: `${products.product_name}`,
-          price: Number.parseInt(`${products.product_price}`),
-          img: `${products.product_image}`,
-          company: `${products.product_type_code}`,
-          inCart: false,
-          colors: `${products.colors}`
-        }))
-      )
+      .then(response => processProducts(response.data.results))
       .then(products => {
         products.forEach(product => {
           getProductTypeCode(product.company).then(
