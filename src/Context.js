@@ -7,6 +7,7 @@ import {
   processProducts,
   getColors
 } from "./services/ProductServices";
+import { apiLinks } from "./services/ApiLink";
 
 const ProductContext = React.createContext();
 class ProductProvider extends Component {
@@ -21,9 +22,14 @@ class ProductProvider extends Component {
       modalProduct: detailProduct,
       cartSubTotal: 0,
       cartTotal: 0,
-      url: "http://api-mobile-shopping.herokuapp.com/api/products/"
+      url: apiLinks.products,
+      customer: {}
     };
   }
+
+  updateCustomer = customer => {
+    this.setState({ customer });
+  };
 
   updateProducts = products => {
     this.setState({ products });
@@ -34,6 +40,7 @@ class ProductProvider extends Component {
   };
 
   componentDidMount() {
+    //lifecycler hook dc goi sau khi renderlan dau tien
     Axios.get(this.state.url)
       .then(response => processProducts(response.data.results))
       .then(products => {
@@ -211,7 +218,8 @@ class ProductProvider extends Component {
           setNewUrl: this.setNewUrl,
           updateProducts: this.updateProducts,
           clearCart: this.clearCart,
-          setProducts: this.setProducts
+          setProducts: this.setProducts,
+          updateCustomer: this.updateCustomer
         }}
       >
         {this.props.children}
