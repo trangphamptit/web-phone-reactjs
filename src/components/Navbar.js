@@ -101,6 +101,7 @@ class Navbar extends Component {
             <Link to="/">
               <img src={logo} alt="store" className="navbar-brand" />
             </Link>
+
             <button
               className="navbar-toggler"
               type="button"
@@ -112,6 +113,7 @@ class Navbar extends Component {
             >
               <span className="navbar-toggler-icon" />
             </button>
+
             <div
               className="collapse navbar-collapse"
               id="navbarSupportedContent"
@@ -148,6 +150,7 @@ class Navbar extends Component {
                 />
                 {this.buttonSearch(value)}
               </form>
+
               <div className="dropdown mr-auto">
                 <button
                   className="btn btn-success dropdown-toggle"

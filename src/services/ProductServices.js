@@ -1,14 +1,31 @@
 import Axios from "axios";
 import { apiLinks } from "./ApiLink";
 
+//lấy tất cả sản phẩm
 function getAllProducts() {
   return Axios.get(apiLinks.products);
 }
+
 function getProductTypeCode(url) {
   return Axios.get(url).then(response => response.data.product_type_code);
 }
-function getColors(url) {
+
+function getColor(url) {
   return Axios.get(url).then(response => response.data.color_description);
+}
+
+function getColorsFromListLink(listLink) {
+  let colors = [];
+  listLink.map(colorUrl =>
+    getColor(colorUrl).then(color_description => colors.push(color_description))
+  );
+  return colors;
+}
+
+function getColors() {
+  return Axios.get(apiLinks.colors).then(response =>
+    response.data.results.map(color => color.color_description)
+  );
 }
 function searchProducts(query) {
   return Axios.get(apiLinks.searchProducts + query).then(
@@ -39,7 +56,7 @@ function processProducts(products) {
     img: `${product.product_image}`,
     company: `${product.product_type_code}`,
     inCart: false,
-    colors: `${product.product_colors}`
+    colors: getColorsFromListLink(product.product_colors)
   }));
 }
 

@@ -51,11 +51,6 @@ class ProductProvider extends Component {
         });
         this.setState({ products });
       });
-    // .then(products => {
-    //   products.forEach(product => {
-    //     getColors(product.colors).then(colors => (product.colors = colors));
-    //   });
-    // });
   }
 
   setProducts = () => {

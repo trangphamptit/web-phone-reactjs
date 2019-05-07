@@ -51,11 +51,19 @@ export default class Details extends Component {
                     </strong>
                   </h4>
 
-                  <h4 className="text-blue">{console.log({ colors })}</h4>
+                  <h4 className="text-blue">
+                    <strong>màu sắc:</strong>
+                    {colors.map(color => (
+                      <li>
+                        {" "}
+                        <span>{color}</span>
+                      </li>
+                    ))}
+                  </h4>
 
-                  <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    Chi tiết sản phẩm
-                  </p>
+                  <h4 className="text-blue">
+                    <strong>Chi tiết sản phẩm:</strong>
+                  </h4>
                   <p className="text-muted lead">{info}</p>
                   {/* button */}
                   <div>
