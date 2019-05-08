@@ -26,13 +26,20 @@ export default class Login extends Component {
     });
   };
 
+  goToPrevPage = () => {
+    this.props.history.goBack();
+  };
+
   handleSubmit(event, value) {
     console.log(this.props.location);
     let email = this.state.email;
     let password = this.state.password;
     event.preventDefault();
     login(email, password)
-      .then(response => value.updateCustomer(response.data))
+      .then(response => {
+        value.updateCustomer(response.data);
+        this.goToPrevPage();
+      })
       .catch(e =>
         this.setState({ error: "Tài khoản hoặc mật khẩu chưa đúng" })
       );

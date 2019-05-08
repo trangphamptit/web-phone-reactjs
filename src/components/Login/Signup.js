@@ -42,9 +42,14 @@ class Signup extends Component {
     });
   };
 
+  goToPrevPage = () => {
+    this.props.history.goBack();
+  };
+
   handleSubmit = event => {
     try {
       createCustomer(this.state.customer);
+      this.goToPrevPage();
     } catch (e) {
       alert(e.message());
     }
