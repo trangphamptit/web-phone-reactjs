@@ -27,14 +27,15 @@ export default class Login extends Component {
   };
 
   handleSubmit(event, value) {
+    console.log(this.props.location);
     let email = this.state.email;
     let password = this.state.password;
+    event.preventDefault();
     login(email, password)
       .then(response => value.updateCustomer(response.data))
       .catch(e =>
         this.setState({ error: "Tài khoản hoặc mật khẩu chưa đúng" })
       );
-    event.preventDefault();
   }
 
   render() {
@@ -43,7 +44,7 @@ export default class Login extends Component {
         {value => {
           return (
             <div className="Login">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={event => this.handleSubmit(event, value)}>
                 <div className="form-group">
                   <label>{this.state.error}</label>
                   <label htmlFor="email">Email address:</label>

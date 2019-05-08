@@ -18,6 +18,7 @@ import Default from "./components/Default";
 import Cart from "./components/Cart/Cart";
 import Modal from "./components/Modal";
 import CurrencyFormat from "react-currency-format";
+import BillForm from "./BillForm";
 class App extends Component {
   render() {
     return (
@@ -29,6 +30,7 @@ class App extends Component {
           <Route path="/cart" component={Cart} />
           <Route path="/login" exact component={Login} />
           <Route path="/createCustomer" exact component={Signup} />
+          <Route path="/billForm" exact component={BillForm} />
           <Route component={Default} />
         </Switch>
         <Modal />

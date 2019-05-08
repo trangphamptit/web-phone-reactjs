@@ -9,6 +9,7 @@
     "react-bootstrap": "^1.0.0-beta.6",
     "react-currency-format": "^1.0.0",
     "react-dom": "^16.8.4",
+    "react-infinite-scroller": "^1.2.4",
     "react-js-pagination": "^3.0.2",
     "react-radio-group": "^3.0.3",
     "react-router-dom": "^4.3.1",

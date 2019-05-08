@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import BillForm from "../../BillForm";
 export default function CartTotals({ value }) {
   const { cartSubTotal, cartTotal, clearCart } = value;
 
@@ -32,7 +33,7 @@ export default function CartTotals({ value }) {
           <span className="text-title">Hóa đơn:</span>
           <strong>{cartTotal}đ</strong>
         </h5>
-        <Link to="/">
+        <Link to="/billForm">
           <button
             className="btn btn-outline-danger text-uppercase mb-3 px-5"
             type="button"
