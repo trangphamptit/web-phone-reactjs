@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { apiLinks } from "./services/ApiLink";
 import { ProductConsumer } from "./Context";
+import { getDateOrder } from "./services/ProductServices";
 class BillForm extends Component {
   render() {
     return (
       <ProductConsumer>
         {value => {
-          const { customer } = value;
+          const { customer, cart, cartSubTotal, cartTotal } = value;
           return (
             <div className="container">
               <div className="card">
                 <div className="card-header text-capitalize">
                   Hóa đơn
-                  <strong>01/01/01/2018</strong>
+                  {/* <strong>{date_order}</strong> */}
                   <span className="float-right">
                     {" "}
                     <strong>Trạng thái:</strong> Đang chờ xử lý
@@ -60,14 +61,18 @@ class BillForm extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td className="center">1</td>
-                          <td className="left strong">Origin License</td>
-                          <td className="left">Extended License</td>
-                          <td className="right">$999,00</td>
-                          <td className="center">1</td>
-                          <td className="right">$999,00</td>
-                        </tr>
+                        {cart.map(item => {
+                          return (
+                            <tr>
+                              <td className="center">{item.id}</td>
+                              <td className="left strong">{item.title}</td>
+                              <td className="left">Extended License</td>
+                              <td className="right">{item.price}</td>
+                              <td className="center">{item.count}</td>
+                              <td className="right">{item.total}</td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -80,7 +85,7 @@ class BillForm extends Component {
                             <td className="left">
                               <strong>Tổng tiền</strong>
                             </td>
-                            <td className="right">$8.497,00</td>
+                            <td className="right">{cartSubTotal}</td>
                           </tr>
 
                           <tr>
@@ -94,7 +99,7 @@ class BillForm extends Component {
                               <strong>Hóa đơn</strong>
                             </td>
                             <td className="right">
-                              <strong>$7.477,36</strong>
+                              <strong>{cartTotal}</strong>
                             </td>
                           </tr>
                         </tbody>

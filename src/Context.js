@@ -26,7 +26,6 @@ class ProductProvider extends Component {
       customer: {}
     };
   }
-
   updateCustomer = customer => {
     this.setState({ customer });
   };

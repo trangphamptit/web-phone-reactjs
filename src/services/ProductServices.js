@@ -1,11 +1,14 @@
 import Axios from "axios";
 import { apiLinks } from "./ApiLink";
-function getBillDate() {
+
+function getDateOrders() {
   return Axios.get(apiLinks.orders).then(response =>
     response.data.results.map(order => order.date_order)
   );
 }
-
+function getDateOrder(url) {
+  return Axios.get(url).then(response => response.data.date_order);
+}
 //lấy tất cả sản phẩm
 function getAllProducts() {
   return Axios.get(apiLinks.products);
@@ -100,5 +103,5 @@ export {
   getProductsByTypeCode,
   getProductsPage,
   getColors,
-  getBillDate
+  getDateOrder
 };
