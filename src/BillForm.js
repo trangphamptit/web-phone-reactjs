@@ -2,6 +2,16 @@ import React, { Component } from "react";
 import { apiLinks } from "./services/ApiLink";
 import { ProductConsumer } from "./Context";
 import { getDateOrder } from "./services/ProductServices";
+var curday = function(sp) {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //As January is 0.
+  var yyyy = today.getFullYear();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  return mm + sp + dd + sp + yyyy;
+};
 class BillForm extends Component {
   render() {
     return (
@@ -12,8 +22,8 @@ class BillForm extends Component {
             <div className="container">
               <div className="card">
                 <div className="card-header text-capitalize">
-                  Hóa đơn
-                  {/* <strong>{date_order}</strong> */}
+                  Hóa đơn:
+                  <strong>{curday("/")}</strong>
                   <span className="float-right">
                     {" "}
                     <strong>Trạng thái:</strong> Đang chờ xử lý
