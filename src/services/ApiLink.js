@@ -4,6 +4,8 @@ let apiLinks = {
   customers: "https://api-mobile-shopping.herokuapp.com/api/customers/",
   login: "https://api-mobile-shopping.herokuapp.com/api/customers/login/",
   orderItems: "https://api-mobile-shopping.herokuapp.com/api/order-items/",
+  orderItemsOfOrder:
+    "https://api-mobile-shopping.herokuapp.com/api/order-items/order/",
   orderByCustomer:
     "https://api-mobile-shopping.herokuapp.com/api/orders/customer/",
   orders: "https://api-mobile-shopping.herokuapp.com/api/orders/",

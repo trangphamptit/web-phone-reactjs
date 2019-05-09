@@ -7,6 +7,14 @@ function getAllProducts() {
   return Axios.get(apiLinks.products);
 }
 
+function getProduct(url) {
+  let product = {};
+  Axios.get(url).then(response => {
+    product = processProduct(response.data);
+  });
+  return product;
+}
+
 function getProductTypeCode(url) {
   return Axios.get(url).then(response => response.data.product_type_code);
 }
@@ -50,7 +58,11 @@ function getAllProductTypeCode() {
 }
 
 function processProducts(products) {
-  return products.map(product => ({
+  return products.map(product => processProduct(product));
+}
+
+function processProduct(product) {
+  return {
     id: product.id,
     title: `${product.product_name}`,
     price: Number.parseInt(`${product.product_price}`),
@@ -58,7 +70,7 @@ function processProducts(products) {
     company: `${product.product_type_code}`,
     inCart: false,
     colors: getColorsFromListLink(product.product_colors)
-  }));
+  };
 }
 
 function processProductTypeCode(refProducts) {
