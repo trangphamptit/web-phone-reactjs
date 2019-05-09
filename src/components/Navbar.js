@@ -14,8 +14,6 @@ import {
   getProductsByTypeCode
 } from "../services/ProductServices";
 
-import Axios from "axios";
-
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -27,16 +25,16 @@ class Navbar extends Component {
 
   componentDidMount() {
     getAllProductTypeCode()
-      .then(refProducts => processProductTypeCode(refProducts))
-      .then(refProducts => this.setState({ refProducts }));
+      .then((refProducts) => processProductTypeCode(refProducts))
+      .then((refProducts) => this.setState({ refProducts }));
   }
 
   //
   onItemClick(value, item) {
-    getProductsByTypeCode(item.id).then(products => {
-      products.forEach(product => {
+    getProductsByTypeCode(item.id).then((products) => {
+      products.forEach((product) => {
         getProductTypeCode(product.company).then(
-          company => (product.company = company)
+          (company) => (product.company = company)
         );
         // getColors(product.colors)
       });
@@ -46,7 +44,7 @@ class Navbar extends Component {
 
   renderRefProducts(value) {
     if (this.state.refProducts.length > 0) {
-      return this.state.refProducts.map(item => {
+      return this.state.refProducts.map((item) => {
         let boundItemClick = this.onItemClick.bind(this, value, item);
         return (
           <Link to="/" className="dropdown-item" onClick={boundItemClick}>
@@ -57,7 +55,7 @@ class Navbar extends Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -68,21 +66,64 @@ class Navbar extends Component {
       <button
         className="btn btn-outline-success my-2 my-sm-0"
         type="submit"
-        onClick={event => this.handleSubmit(event, value)}
+        onClick={(event) => this.handleSearchSubmit(event, value)}
       >
         Search
       </button>
     );
   }
 
-  handleSubmit(event, value) {
+  buttonLoginSignup(customer) {
+    if (Object.keys(customer).length === 0) {
+      return (
+        <div className="dropdown mr-auto">
+          <button
+            className="btn btn-success dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+          >
+            <i className="fa fa-user" aria-hidden="true" />
+            <span className="caret" />
+          </button>
+          <ul className="dropdown-menu">
+            <Link to="/login" className="login dropdown-item">
+              đăng nhập
+            </Link>
+            <Link to="/createCustomer" className="sign-up dropdown-item">
+              Đăng ký
+            </Link>
+          </ul>
+        </div>
+      );
+    }
+  }
+
+  buttonLogout(value) {
+    if (!(Object.keys(value.customer).length === 0)) {
+      return (
+        <button
+          className="btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+          onClick={(event) => this.logout(event, value)}
+        >
+          Logout
+        </button>
+      );
+    }
+  }
+
+  logout(event, value) {
+    value.updateCustomer({});
+  }
+
+  handleSearchSubmit(event, value) {
     try {
       let search = this.state.search;
       if (search === "" || search.trim === "") {
         event.preventDefault();
       } else {
         console.log(this.state.search);
-        searchProducts(this.state.search).then(products => {
+        searchProducts(this.state.search).then((products) => {
           products = processProducts(products);
           value.updateProducts(products);
         });
@@ -96,7 +137,7 @@ class Navbar extends Component {
   render() {
     return (
       <ProductConsumer>
-        {value => (
+        {(value) => (
           <NavWrapper className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link to="/">
               <img src={logo} alt="store" className="navbar-brand" />
@@ -150,27 +191,8 @@ class Navbar extends Component {
                 />
                 {this.buttonSearch(value)}
               </form>
-
-              <div className="dropdown mr-auto">
-                <button
-                  className="btn btn-success dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  // disabled={value.customer !== {}}
-                >
-                  <i className="fa fa-user" aria-hidden="true" />
-                  <span className="caret" />
-                </button>
-                <ul className="dropdown-menu">
-                  <Link to="/login" className="login dropdown-item">
-                    đăng nhập
-                  </Link>
-                  <Link to="/createCustomer" className="sign-up dropdown-item">
-                    Đăng ký
-                  </Link>
-                </ul>
-              </div>
-
+              {this.buttonLoginSignup(value.customer)}
+              {this.buttonLogout(value)}
               <Link to="/cart" className="ml-auto">
                 <ButtonContainer>
                   <span className="mr-2">
