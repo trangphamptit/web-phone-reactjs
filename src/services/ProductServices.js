@@ -14,12 +14,8 @@ function getAllProducts() {
   return Axios.get(apiLinks.products);
 }
 
-function getProduct(url) {
-  let product = {};
-  Axios.get(url).then((response) => {
-    product = processProduct(response.data);
-  });
-  return product;
+export function getProduct(url) {
+  return Axios.get(url).then((response) => processProduct(response.data));
 }
 
 function getProductTypeCode(url) {
