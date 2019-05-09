@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 import { login } from "../../services/CustomerServices";
+import {
+  getCustomerOrderItems,
+  isCustomerOrderEmpty,
+  createOrder
+} from "../../services/OrderServices";
+import { getProduct } from "../../services/ProductServices";
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,14 +37,29 @@ export default class Login extends Component {
     this.props.history.goBack();
   };
 
+  async handleOrder(customer, value) {
+    if (isCustomerOrderEmpty(customer.id)) {
+      await createOrder(customer.url);
+    }
+    // add Orderd items in to cart.
+    await getCustomerOrderItems(customer.id).then(response =>
+      response.data.map(orderItem => {
+        getProduct(orderItem.product_id).then(product => {
+          value.addToCart(product.id);
+        });
+      })
+    );
+  }
+
   handleSubmit(event, value) {
     let email = this.state.email;
     let password = this.state.password;
     event.preventDefault();
     login(email, password)
       .then(response => {
-        value.updateCustomer(response.data);
-
+        let customer = response.data;
+        value.updateCustomer(customer);
+        this.handleOrder(customer, value);
         this.goToPrevPage();
       })
       .catch(e =>
