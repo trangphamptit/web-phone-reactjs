@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 import { ProductConsumer } from "../../Context";
+import { Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 import { login } from "../../services/CustomerServices";
@@ -20,7 +21,7 @@ export default class Login extends Component {
     return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -35,12 +36,12 @@ export default class Login extends Component {
     let password = this.state.password;
     event.preventDefault();
     login(email, password)
-      .then((response) => {
+      .then(response => {
         value.updateCustomer(response.data);
 
         this.goToPrevPage();
       })
-      .catch((e) =>
+      .catch(e =>
         this.setState({ error: "Tài khoản hoặc mật khẩu chưa đúng" })
       );
   }
@@ -48,10 +49,10 @@ export default class Login extends Component {
   render() {
     return (
       <ProductConsumer>
-        {(value) => {
+        {value => {
           return (
             <div className="Login">
-              <form onSubmit={(event) => this.handleSubmit(event, value)}>
+              <form onSubmit={event => this.handleSubmit(event, value)}>
                 <div className="form-group">
                   <label>{this.state.error}</label>
                   <label htmlFor="email">Email address:</label>
@@ -76,11 +77,14 @@ export default class Login extends Component {
                 </div>
                 <button
                   type="submit"
-                  className="btn btn-primary btn-lg btn-block"
+                  className="btn btn-primary btn-lg btn-block mb-2"
                   disabled={!this.validateForm}
                 >
                   Login
                 </button>
+                <Link to="/createCustomer">
+                  Bạn chưa có tài khoản. Đăng ký?
+                </Link>
               </form>
             </div>
           );
