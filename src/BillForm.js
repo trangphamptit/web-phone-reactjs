@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { apiLinks } from "./services/ApiLink";
 import { ProductConsumer } from "./Context";
-import { getDateOrder } from "./services/ProductServices";
+
 var curday = function(sp) {
   var today = new Date();
   var dd = today.getDate();
