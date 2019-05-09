@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { detailProduct, storeProducts } from "./data";
-import Product from "./components/Product";
 import Axios from "axios";
 import {
   getProductTypeCode,
-  processProducts,
-  getColors
+  processProducts
 } from "./services/ProductServices";
 import { apiLinks } from "./services/ApiLink";
 
@@ -26,6 +24,7 @@ class ProductProvider extends Component {
       customer: {}
     };
   }
+
   updateCustomer = customer => {
     this.setState({ customer });
   };
@@ -39,7 +38,6 @@ class ProductProvider extends Component {
   };
 
   componentDidMount() {
-    //lifecycler hook dc goi sau khi renderlan dau tien
     Axios.get(this.state.url)
       .then(response => processProducts(response.data.results))
       .then(products => {

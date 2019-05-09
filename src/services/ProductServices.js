@@ -1,15 +1,8 @@
 import Axios from "axios";
 import { apiLinks } from "./ApiLink";
 
-function getDateOrders() {
-  return Axios.get(apiLinks.orders).then(response =>
-    response.data.results.map(order => order.date_order)
-  );
-}
-function getDateOrder(url) {
-  return Axios.get(url).then(response => response.data.date_order);
-}
 //lấy tất cả sản phẩm
+
 function getAllProducts() {
   return Axios.get(apiLinks.products);
 }
@@ -76,23 +69,6 @@ function processProductTypeCode(refProducts) {
   }));
 }
 
-//load pagination page
-function getProductsPage(url, products, resolve, reject) {
-  return Axios.get(apiLinks.products)
-    .then(response => {
-      const retrivedProducts = products.concat(response.data.results);
-      if (response.data.next != null) {
-        getProductsPage(response.data.next, retrivedProducts, resolve, reject);
-      } else {
-        resolve(retrivedProducts);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      reject("Something wrong. Please refresh the page and try again.");
-    });
-}
-
 export {
   getAllProducts,
   getProductTypeCode,
@@ -101,7 +77,5 @@ export {
   getAllProductTypeCode,
   processProductTypeCode,
   getProductsByTypeCode,
-  getProductsPage,
-  getColors,
-  getDateOrder
+  getColors
 };
